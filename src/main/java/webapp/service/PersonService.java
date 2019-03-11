@@ -10,9 +10,14 @@ public class PersonService {
 
 	public Person getPerson(String userId) {
 		try {
-			RestTemplate restTemplate = new RestTemplate();
-			URI uri = new URI("http://localhost:8081/api/persons/" + userId);
-			Person person = restTemplate.getForObject(uri, Person.class);
+//			RestTemplate restTemplate = new RestTemplate();
+//			URI uri = new URI("http://localhost:8081/api/persons/" + userId);
+//			Person person = restTemplate.getForObject(uri, Person.class);
+			Person person = new Person();
+			person.setId("user001");
+			person.setLastName("Takahashi");
+			person.setFirstName("Hiromi");
+			person.setPassword("pass001");
 			return person;
 		} catch (Exception e) {
 			throw new RuntimeException(e);

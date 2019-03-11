@@ -25,16 +25,19 @@ public class StockService {
 	
 	@Autowired
 	StockRepository rentalStatusRepository;
+
+	@Autowired
+	BookService bookService;
 	
 	public Stock getStock(String bookId) {
 		return rentalStatusRepository.findById(bookId).get();
 	}
 	
 	public List<StockForm> getStocks(){
-			RestTemplate restTemplate = new RestTemplate();
-			Book[] book = restTemplate.getForObject(webRestApiProviderUrl, Book[].class);
-			List<Book> books = Arrays.asList(book);
-			
+//			RestTemplate restTemplate = new RestTemplate();
+//			Book[] book = restTemplate.getForObject(webRestApiProviderUrl, Book[].class);
+//			List<Book> books = Arrays.asList(book);
+			List<Book> books = bookService.getBooks();
 			List<Stock> stocks = rentalStatusRepository.findAll(new Sort(Direction.ASC,"id"));
 
 			List<StockForm> resultList = new ArrayList<StockForm>();

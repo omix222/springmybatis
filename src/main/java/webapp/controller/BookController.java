@@ -50,15 +50,15 @@ public class BookController {
 			@RequestParam("tags") String tags,
 			@RequestParam("publisher") String publisher,
 			Model model) {
-		Book book = new Book("",title,author,tags,publisher,"");
+		String bookId =	Integer.toString(bookService.getBooks().size()+1);
+		Book book = new Book(bookId,title,author,tags,publisher,"");
 		book = bookService.postBook(book);
 		stockService.addStock(book);
 		return "redirect:stocklist";
 	}
-	@GetMapping(path = "/bookrental/{id}")
-	public String rentalBook(@PathVariable String id,@AuthenticationPrincipal UserDetails user) {
-		stockService.changeStatus(id,user.getUsername());
-		return "redirect:/stocklist";
-	}
-	
+    @GetMapping(path = "/bookrental/{id}")
+    public String rentalBook(@PathVariable String id,@AuthenticationPrincipal UserDetails user) {
+        stockService.changeStatus(id,user.getUsername());
+        return "redirect:/stocklist";
+    }
 }
